@@ -1,6 +1,10 @@
 #!/usr/bin/env python
 
+# file is version controlled in git.
+
 # count the vowels in the file lorem-ipsum.txt
+
+
 
 vowels = {}
 

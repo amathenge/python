@@ -13,7 +13,6 @@ root = tk.Tk()
 
 def keyAction(event):
     print("type: {}".format(event.type))
-    print("status: {}".format(event.status))
     print("widget: {}".format(event.widget))
     print("char: {}".format(event.char))
     print("keysym: {}".format(event.keysym))

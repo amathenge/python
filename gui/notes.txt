@@ -1,0 +1,25 @@
+GUI Apps using Python and Tkinter
+---------------------------------
+
+This is a really big topic, so this file only discusses a few of the items
+
+1.	App creation
+
+2.	Grid positioning
+
+3.	Labels
+
+4.	Buttons
+
+5.	Edit regions (both single line and multiline)
+
+6.	Canvas (for drawing simple shapes)
+
+7.	Frames (to contain other stuff)
+
+8.	Menus
+
+9.	Some additional basic features of the main app
+	8.1	Sizing the window
+	8.2	Binding keys to actions
+	

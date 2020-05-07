@@ -55,7 +55,8 @@ rect1 = c.create_rectangle(1,1,639,479, outline = 'blue', width = 2)
 
 # GLOBALS - Hold Canvas Items
 cItems = {}
-str1 = tk.StringVar()
+str1 = tk.StringVar()       # for textbox
+str2 = tk.StringVar()       # for radiobutton
 
 def getCoords():
     c = str1.get()
@@ -87,6 +88,19 @@ def getColourWidth():
 
     return c
 
+def getWidgetToConfig():
+    w = str2.get()
+    if w == 'L':
+        return 'line'
+    elif w == 'O':
+        return 'oval'
+    elif w == 'R':
+        return 'rect'
+    elif w == 'P':
+        return 'poly'
+    else:
+        return None
+
 
 # THE BUTTONS
 
@@ -101,12 +115,41 @@ def addLine():
         cItems['line{}'.format(len(cItems))] = tmp
         coords = coords[2:]
 
+def addRect():
+    coords = getCoords()
+    if coords == None:
+        return
+    # rectangles - only require four coordinates. Rest are discarded
+    # if given.
+    if len(coords) >= 4:
+        tmp = c.create_rectangle(coords[0], coords[1], coords[2], coords[3])
+        c.itemconfig(tmp, outline='black', width = 2)
+        cItems['rect{}'.format(len(cItems))] = tmp
+
+def addOval():
+    coords = getCoords()
+    if coords == None:
+        return
+    # ovals - only require four coords (bounding box). Rest are discarded
+    # if given
+    if len(coords) >= 4:
+        tmp = c.create_oval(coords[0], coords[1], coords[2], coords[3])
+        c.itemconfig(tmp, outline = 'red', width = 2)
+        cItems['oval{}'.format(len(cItems))] = tmp
+
+def addPoly():
+    pass
+    
 def formatLines():
     cw = getColourWidth()
     if cw != None:
+        w = getWidgetToConfig()
         for item in cItems:
-            if 'line' in item:
-                c.itemconfig(cItems[item], fill = cw[0], width=cw[1])
+            if w in item:
+                if w == 'line':
+                    c.itemconfig(cItems[item], fill = cw[0], width=cw[1])
+                else:
+                    c.itemconfig(cItems[item], outline = cw[0], width=cw[1])
 
 img = tk.PhotoImage(width = 1, height = 1)
 btn1 = tk.Button(frame2, text = "line", image = img, width=50, height=50)
@@ -118,16 +161,19 @@ btn1.grid(row = 0, column = 0)
 btn2 = tk.Button(frame2, text = "rect", image = img, width = 50, height = 50)
 btn2.configure(font = ('Comic Sans', 11, 'bold'), compound = 'center')
 btn2.configure(foreground = 'blue')
+btn2.configure(command = addRect)
 btn2.grid(row = 0, column = 1)
 
 btn3 = tk.Button(frame2, text = "oval", image = img, width = 50, height = 50)
 btn3.configure(font = ('Comic Sans', 11, 'bold'), compound = 'center')
 btn3.configure(foreground = 'blue')
+btn3.configure(command = addOval)
 btn3.grid(row = 0, column = 2)
 
 btn4 = tk.Button(frame2, text = "poly", image = img, width = 50, height = 50)
 btn4.configure(font = ('Comic Sans', 11, 'bold'), compound = 'center')
 btn4.configure(foreground = 'blue')
+btn4.configure(command = addPoly)
 btn4.grid(row = 0, column = 3)
 
 txt1 = tk.Entry(frame2, width = 25, textvariable = str1, foreground = 'yellow', background = 'black')
@@ -142,10 +188,29 @@ lbl1.configure(padx = 10, pady = 5)
 lbl1.grid(row = 0, column = 5)
 
 # colour changes
+
+rad1 =tk.Radiobutton(frame2, text = '', variable = str2, value = 'L')
+rad1.configure(image = img, width = 50, height = 50)
+rad1.grid(row = 1, column = 0)
+
+rad2 =tk.Radiobutton(frame2, text = '', variable = str2, value = 'R')
+rad2.configure(image = img, width = 50, height = 50)
+rad2.grid(row = 1, column = 1)
+
+rad3 =tk.Radiobutton(frame2, text = '', variable = str2, value = 'O')
+rad3.configure(image = img, width = 50, height = 50)
+rad3.grid(row = 1, column = 2)
+
+rad4 =tk.Radiobutton(frame2, text = '', variable = str2, value = 'P')
+rad4.configure(image = img, width = 50, height = 50)
+rad4.grid(row = 1, column = 3)
+
+rad1.select()
+
 btn5 = tk.Button(frame2, text = "c/w", image = img, width=50, height=50)
 btn5.configure(font = ('Comic Sans', 11, 'bold'), compound = 'center')
 btn5.configure(foreground = 'blue')
 btn5.configure(command = formatLines)
-btn5.grid(row = 1, column = 0)
+btn5.grid(row = 1, column = 4, sticky = tk.W, padx = 10)
 
 root.mainloop()

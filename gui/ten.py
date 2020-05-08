@@ -17,13 +17,45 @@ root = tk.Tk()
 # root.geometry('640x480+20+20')
 # root.minsize(640,480)
 
+# TWO FRAMES
+
+frame1 = tk.Frame(root)
+frame1.pack(fill = tk.BOTH, expand = True)
+
+frame2 = tk.Frame(root)
+frame2.pack(fill = tk.BOTH, expand = True)
+
+# GLOBALS - Hold Canvas Items
+cItems = {}
+str1 = tk.StringVar()       # for textbox
+str2 = tk.StringVar()       # for radiobutton
+
 # THE MENU
 
 def menuCommand(action):
+    global cItems, str1, str2
+    if action == 'N':
+        # clear the canvas
+        c.delete(tk.ALL)
+        # the following code will also work.
+        # for item in cItems:
+        #    c.delete(cItems[item])
+        cItems = {}
+
+    if action == 'DL':
+        # delete last item
+        try:
+            item = cItems.popitem()
+            c.delete(item[1])
+            # no need to delete this - it will go out of scope and
+            # will cause an error since value is gone
+            # del(item)            
+            # messagebox.showinfo('Item Deleted', 'Deleted item {}'.format(toDelete))
+        except:
+            messagebox.showinfo('Item Deleted', 'Nothing to delete')
     if action == 'E':
         root.destroy()
-    else:
-        messagebox.showinfo('Menu Item Pressed', 'You Pressed a Menu Item')
+
 
 menu = tk.Menu(root)
 fmnu = tk.Menu(menu, tearoff = 0)
@@ -33,15 +65,15 @@ fmnu.add_command(label='Save', command=lambda: menuCommand('S'))
 fmnu.add_separator()
 fmnu.add_command(label='Exit', command=lambda: menuCommand('E'))
 menu.add_cascade(menu=fmnu, label='File')
+
+emnu = tk.Menu(menu, tearoff = 0)
+emnu.add_command(label = 'Del Last', command=lambda: menuCommand('DL'))
+emnu.add_command(label = 'All Black', command=lambda: menuCommand('AB'))
+emnu.add_command(label = 'Canvas Black', command=lambda: menuCommand('CB'))
+emnu.add_command(label = 'Canvas White', command=lambda: menuCommand('CW'))
+menu.add_cascade(menu=emnu, label='Edit')
+
 root.config(menu = menu)
-
-# TWO FRAMES
-
-frame1 = tk.Frame(root)
-frame1.pack(fill = tk.BOTH, expand = True)
-
-frame2 = tk.Frame(root)
-frame2.pack(fill = tk.BOTH, expand = True)
 
 # THE CANVAS
 
@@ -52,11 +84,6 @@ c.config(borderwidth = 0, highlightthickness = 0)
 # line1 = c.create_line(0, 0, 640, 480)
 # c.itemconfig(line1, fill = 'blue', width = 2)
 rect1 = c.create_rectangle(1,1,639,479, outline = 'blue', width = 2)
-
-# GLOBALS - Hold Canvas Items
-cItems = {}
-str1 = tk.StringVar()       # for textbox
-str2 = tk.StringVar()       # for radiobutton
 
 def getCoords():
     c = str1.get()

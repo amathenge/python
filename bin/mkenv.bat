@@ -1,6 +1,8 @@
 @echo off
 rem
-rem create a virtual environment
+rem create a virtual environment with Flask for Python development
+rem
+rem THIS SCRIPT HAS RELATIVE PATHS AND INSTALLS SOFTWARE FROM THE INTERNET - BE WARNED
 rem
 rem run from the folder from which you want to create the environment.
 rem
@@ -110,21 +112,21 @@ echo Step 11 - Creating template folders and copying files
 echo.
 echo mkdir application
 mkdir application
-echo makedir templates
-mkdir templates
-echo mkdir templates\includes
-mkdir templates\includes
-echo mkdir static
-mkdir static
-echo mkdir static\css
-mkdir static\css
-echo mkdir static\scripts
-mkdir static\scripts
+echo makedir application\templates
+mkdir application\templates
+echo mkdir application\templates\includes
+mkdir application\templates\includes
+echo mkdir application\static
+mkdir application\static
+echo mkdir applicatiion\static\css
+mkdir application\static\css
+echo mkdir application\static\scripts
+mkdir application\static\scripts
 echo.
 echo Step 12, 13, 14 and 15 copy files to folder locations
 echo.
-echo copy ..\bin\templates\index.html templates
-copy ..\bin\templates\index.html templates
+echo copy ..\bin\templates\index.html application\templates
+copy ..\bin\templates\index.html application\templates
 echo copy ..\bin\templates\main.py .
 copy ..\bin\templates\main.py .
 echo copy ..\bin\templates\routes.py application

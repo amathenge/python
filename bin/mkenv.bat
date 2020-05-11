@@ -146,8 +146,20 @@ echo.
 echo.
 echo we're done!
 echo.
-echo call d.bat
+echo call d.bat to exit from the virtual environment
 call d.bat
+echo.
+echo.
+echo Helpfull notes:
+echo ---------------
+echo.
+echo These commands work in the root folder (where main.py is located)
+echo.
+echo To launch the virtual environment, type "a"
+echo To close the virtual environment, type "d"
+echo To launch a python shell - with flask - type "flask shell"
+echo To launch your application, flask server, type "flask run"  <-- this is what you want do to
+echo.
 goto completed
 
 :ExitScript

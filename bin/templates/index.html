@@ -1,17 +1,4 @@
-<html>
-<head>
-	<title>App Title Goes Here</title>
-	<!-- add links to css and javascript here -->
-	<!-- link rel=stylesheet href="mystylesheet.css" -->
-	<!-- script type=text/javascript src=myscript.js -->
-	<meta charset="UTF-8">
-    <meta name="description" content="My Super Application">
-    <meta name="keywords" content="HTML, CSS, XML, JavaScript">
-    <meta name="author" content="Anthony Mathenge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-</head>
-<body>
-<p>This is a blank page</p>
-
-</body>
-</html>
+{% extends "includes/template.html" %}
+{% include "includes/header.html" %}
+{% include "includes/content.html" %}
+{% include "includes/footer.html" %}

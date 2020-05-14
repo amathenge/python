@@ -1,5 +1,8 @@
 @echo off
 rem
+
+rem stuff has been added, so the steps below may not be 100% accurate.
+
 rem create a virtual environment with Flask for Python development
 rem
 rem THIS SCRIPT HAS RELATIVE PATHS AND INSTALLS SOFTWARE FROM THE INTERNET - BE WARNED
@@ -43,12 +46,15 @@ rem 12.	 copies the file "main.py" from "..\bin\templates" into "."
 rem 13.  copies the file "routes.py" from "..\bin\templates" into "application"
 rem 14.  copies the file "__init__.py" from "..\bin\templates" into "application"
 rem 15.  copies the file "index.html" from "..\bin\templates" into "application\templates"
+
 rem 16.  exits with the following help message:
 rem         to activate virtual environment, from "." type "a"
 rem         to deactivate virutal environment from "." type "d"
 rem         to start a flask shell type "flask shell"
 rem         to start the flask application type "flask run"
 rem
+call C:\Users\andrew\Documents\src\python\bin\envcheck.py %~0
+if not "%errorlevel%" == "0" goto checkFolder
 set proj=
 set /p proj="Enter Project Folder Name: "
 if "%proj%" == "" goto ExitScript
@@ -133,6 +139,18 @@ echo copy ..\bin\templates\routes.py application
 copy ..\bin\templates\routes.py application
 echo copy ..\bin\templates\__init__.py application
 copy ..\bin\templates\__init__.py application
+echo copy ..\bin\templates\static\css\styles.css application\static\css
+copy ..\bin\templates\static\css\styles.css application\static\css
+echo copy ..\bin\templates\static\scripts\scripts.js application\static\scripts
+copy ..\bin\templates\static\scripts\scripts.js application\static\scripts
+echo copy ..\bin\templates\includes\header.html application\templates\includes
+copy ..\bin\templates\includes\header.html application\templates\includes
+echo copy ..\bin\templates\includes\content.html application\templates\includes
+copy ..\bin\templates\includes\content.html application\templates\includes
+echo copy ..\bin\templates\includes\footer.html application\templates\includes
+copy ..\bin\templates\includes\footer.html application\templates\includes
+echo copy ..\bin\templates\includes\template.html application\templates\template.html
+copy ..\bin\templates\includes\template.html application\templates\includes
 echo.
 echo Step 15:
 echo to activate virtual environment, from "." type "a"
@@ -158,8 +176,11 @@ echo.
 echo To launch the virtual environment, type "a"
 echo To close the virtual environment, type "d"
 echo To launch a python shell - with flask - type "flask shell"
-echo To launch your application, flask server, type "flask run"  <-- this is what you want do to
+echo To launch your application, flask server, type "flask run"  ^<--this is what you want do to
 echo.
+echo To move the application to a different location, simply copy the entire folder
+echo %proj%
+echo To the new location.
 goto completed
 
 :ExitScript
@@ -174,6 +195,17 @@ goto completed
 :UserQuit
 echo "Exiting..."
 goto completed
+
+:checkFolder
+echo Appears that we are running from a strange location. The script should
+echo be run from C:\Users\Andrew\Documents\src\python
+echo.
+call C:\Users\andrew\Documents\src\python\bin\envcheck.py %~0
+echo check completed with errorlevel = %errorlevel%
+echo.
+echo Please check
+goto completed
+
 
 :completed
 echo.

@@ -21,7 +21,25 @@ Callbacks
 '''
 def drawShape():
     s = str1.get()
-    messagebox.showinfo('Info:', "you typed: {}".format(s))
+    if len(s) < len('type(1,2,3,4)'):
+        messagebox.showinfo('Error', "input error: {}".format(s))
+    else:
+        cmd = s[0:4].lower()
+        if cmd not in ('line', 'rect', 'oval', 'poly'):
+            messagebox.showinfo('Error', "input error: {}".format(s))
+            return None
+        cmd1 = s[4:]
+        pos1 = cmd1.find('(')
+        if pos1 == -1:
+            messagebox.showinfo('Error', "input error: {}".format(s))
+            return None
+        pos2 = cmd1.rfind(')')
+        if pos2 == -1:
+            messagebox.showinfo('Error', "input error: {}".format(s))
+            return None
+        # if we're here, we may have good data.
+        data = cmd1[pos1+1:pos2]
+        messagebox.showinfo('Data', 'you have {}, {}'.format(cmd, data))
 
 frame1 = tk.Frame(root)
 frame1.pack(fill = tk.BOTH, expand = True)

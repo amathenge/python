@@ -1,0 +1,10 @@
+A BASIC FORM WITH ONLY ONE ELEMENT
+
+        <form action="{{ url_for('edit', id=rowData.id) }}" method="POST">
+          <div class="form-group">
+            <input type="hidden" id="id" name="id" value="{{ rowData.id }}">
+            <label for="data">Data</label>
+            <textarea class="form-control" id="data" name="data" cols="5" rows="3">{{ rowData.data }}</textarea>
+          </div>
+          <button type="submit" class="btn btn-primary">Submit</button>
+        </form>

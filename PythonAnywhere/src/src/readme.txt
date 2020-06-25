@@ -1,1 +1,0 @@
-On the iPad, to get CTRL+C, use CTRL+[
